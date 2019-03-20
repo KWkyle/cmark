@@ -1100,6 +1100,12 @@ match:
   inl->as.link.title = title;
   inl->start_line = inl->end_line = subj->line;
   inl->start_column = opener->inl_text->start_column;
+
+  // A footnote reference cannot have labels
+  if (found_label) {
+    subj->pos = initial_pos;
+  }
+
   inl->end_column = subj->pos + subj->column_offset + subj->block_offset;
   cmark_node_insert_before(opener->inl_text, inl);
   // Add link text:
